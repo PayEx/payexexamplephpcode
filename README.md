@@ -17,7 +17,7 @@ requirements:
 ===============
 
 Getting Started:
-1. unzip "payex_php_code_example" to your test/production environment
+1. Copy files to your test/production environment
 2. edit resources/settings.php
  - AuthorizationBearer (AuthorizationBearer = token)
  - payeeId (Merchant ID)
