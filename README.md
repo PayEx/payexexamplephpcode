@@ -1,6 +1,3 @@
-# payexexamplephpcode
-example code in php
-
 ===============
 PayEx API (PHP)
 ===============
