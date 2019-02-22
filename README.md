@@ -5,14 +5,17 @@ PayEx API (PHP)
 ===============
 
 ===============
+
 requirements:
 * PHP 7.1.9
 (may work with other PHP versions)
 * PHP extension curl
 * jQuery v3.3.1(included in the project => jquery.min.js)
+
 ===============
 
 ===============
+
 Getting Started:
 1. unzip "payex_php_code_example" to your test/production environment
 2. edit resources/settings.php
@@ -28,10 +31,12 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 4. run php files
 
 ===============
+
 Roadmap:
 * add callback handling
 * better response handling
 * add all instruments => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/payex-payment-instruments/
+
 ===============
 
 Any questions - please contact support.ecom@payex.com
