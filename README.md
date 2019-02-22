@@ -38,5 +38,3 @@ Roadmap:
 * add all instruments => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/payex-payment-instruments/
 
 ===============
-
-Any questions - please contact support.ecom@payex.com
