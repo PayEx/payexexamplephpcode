@@ -15,11 +15,9 @@ include 'resources/payexapi.php';
 $request = new payexapi();
 $settingsdata = include 'resources/settings.php';
 
-$hostUrls = array('https://example.com', 'https://example.net');
-
 $urls = array
     (
-    "hostUrls" => $hostUrls,
+    "hostUrls" => array('https://example.com', 'https://example.net'),
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
     "callbackUrl" => "https://api.example.com/payment-callback",
@@ -43,57 +41,31 @@ $metadata = array
 );
 
 $creditCard = array
-    (
-    "no3DSecure" => false,
-    "no3DSecureForStoredCard" => false,
-    "rejectCardNot3DSecureEnrolled" => false,
-    "rejectCreditCards" => false,
-    "rejectDebitCards" => false,
-    "rejectConsumerCards" => false,
-    "rejectCorporateCards" => false,
-    "rejectAuthenticationStatusA" => false,
-    "rejectAuthenticationStatusU" => false,
-    "noCvc" => false,
-);
-
-$creditCardroot = array
-    (
-    'creditCard' => $creditCard,
+(
+"no3DSecure" => false,
+"no3DSecureForStoredCard" => false,
+"rejectCardNot3DSecureEnrolled" => false,
+"rejectCreditCards" => false,
+"rejectDebitCards" => false,
+"rejectConsumerCards" => false,
+"rejectCorporateCards" => false,
+"rejectAuthenticationStatusA" => false,
+"rejectAuthenticationStatusU" => false,
+"noCvc" => false,
 );
 
 $invoice = array
-    (
-    "feeAmount" => 1000,
-    "invoiceType" => "PayExFinancingSe",
-);
-
-$invoiceroot = array
-    (
-    'invoice' => $invoice,
-);
-
-$campaignInvoice = array
-    (
-    "feeAmount" => 2000,
-    "campaignCode" => "Campaign3",
-);
-
-$campaignInvoiceroot = array
-    (
-    'campaignInvoice' => $campaignInvoice,
+(
+"feeAmount" => 1000,
+"invoiceType" => "PayExFinancingSe",
 );
 
 $swish = array
-    (
-    "enableEcomOnly" => false,
+(
+"enableEcomOnly" => false,
 );
 
-$swishroot = array
-    (
-    'swish' => $swish,
-);
-
-$items = array($creditCardroot, $invoiceroot/*, $campaignInvoiceroot*/, $swishroot);
+$items = array(array('creditCard' => $creditCard), array('invoice' => $invoice), array('swish' => $swish));
 
 $paymentorder = array
     (
