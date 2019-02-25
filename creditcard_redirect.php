@@ -13,11 +13,9 @@ include 'resources/payexapi.php';
 $request = new payexapi();
 $settingsdata = include 'resources/settings.php';
 
-$hostUrls = array('https://example.com', 'https://example.net');
-
 $urls = array
     (
-    "hostUrls" => $hostUrls,
+    "hostUrls" => array('https://example.com', 'https://example.net'),
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
     "callbackUrl" => "https://api.example.com/payment-callback",
@@ -40,8 +38,6 @@ $prices = array
     "amount" => 2500,
     "vatAmount" => 0,
 );
-
-$pricesArr = array($prices);
 
 $metadata = array
     (
@@ -68,7 +64,7 @@ $payment = array
     'operation' => 'Purchase',
     'intent' => "Authorization",
     'currency' => "SEK",
-    'prices' => $pricesArr,
+    'prices' => array($prices),
     'description' => "Test Purchase",
     'userAgent' => "Mozilla/5.0",
     'language' => "nb-NO",
