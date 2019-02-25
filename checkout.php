@@ -18,19 +18,13 @@ $settingsdata = include 'resources/settings.php';
 
 if (isset($_GET["consumerProfileRef"]) == false) {
 
-    $nationalIdentifier = array
-        (
-        'socialSecurityNumber' => '26026708248',
-        'countryCode' => 'NO',
-    );
-
     $payloadConsumer = array
         (
         "operation" => "initiate-consumer-session",
         "msisdn" => "+4798765432",
         "email" => "olivia.nyhuus@example.com",
         "consumerCountryCode" => "NO",
-        "nationalIdentifier" => $nationalIdentifier,
+        "nationalIdentifier" => array('socialSecurityNumber' => '26026708248', 'countryCode' => 'NO'),
     );
 
     $responseConsumer = $request->payex_request(
@@ -44,49 +38,31 @@ if (isset($_GET["consumerProfileRef"]) == false) {
     $rel = 'view-consumer-identification';
     $index = array_search($rel, array_column($operationsArray, 'rel'));
 
+    // please read about styling here => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/styling/
+    $style = array(
+        'body' => array('backgroundColor' => "#555", 'color' => "#bbb"),
+        'button' => array('backgroundColor' => "#36ac4c", 'color' => "#fff"),
+        'secondaryButton' => array('backgroundColor' => "#555", 'border' => "solid 1px #bbb"),
+        'formGroup' => array('color' => "#bbb", 'backgroundColor' => "#555"),
+        'label' => array('color' => "#bbb"),
+    );
+
     if ($index == true) {
         $href = $operationsArray[$index]->{'href'};
 
-        $javascriptoutput = "";
-        $javascriptoutput .= '<script src="' . $href . '"></script>';
-        $javascriptoutput .= '<script language="javascript">"use strict";';
-        $javascriptoutput .= '
-        let stylevariable = {
-            // please read about styling here => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/styling/
-            /*
-            body: {
-                backgroundColor: "#555",
-                color: "#bbb"
-            },
-            button: {
-                backgroundColor: "#36ac4c",
-                color: "#fff"
-            },
-            secondaryButton: {
-                backgroundColor: "#555",
-                border: "solid 1px #bbb"
-            },
-            formGroup: {
-                color: "#bbb",
-                backgroundColor: "#555"
-            },
-            label: {
-                color: "#bbb"
-            }
-            */
-        };
-        ';
-        $javascriptoutput .= '
+        echo '<script src="' . $href . '"></script>';
+        echo '<script language="javascript">"use strict";';
+        //echo 'let stylevariable = ' . json_encode($style);
+        echo '
 	    let configconsumer = {
-		style : stylevariable,
+		//style : stylevariable,
 		container: "checkin",
-		onConsumerIdentified: function(event) {
-
+		onConsumerIdentified: function(onConsumerIdentifiedEvent) {
 		// event handling onConsumerIdentified
 		// please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/consumers-resource/
 		// HTTP GET call(jQuery)
 		let phpfiletocall = "checkout.php";
-		$.get(phpfiletocall+"?consumerProfileRef="+event.consumerProfileRef, function(data) {
+		$.get(phpfiletocall+"?consumerProfileRef="+onConsumerIdentifiedEvent.consumerProfileRef, function(data) {
 		let parsedHtmlArr = $.parseHTML(data);
 		let paymentmenutokenobject = parsedHtmlArr.find( x => x.className == "paymentmenu-token");
 		let srcUrl = paymentmenutokenobject.innerText.trim();
@@ -101,10 +77,10 @@ if (isset($_GET["consumerProfileRef"]) == false) {
 			script2.async = false;
 			let node = document.createTextNode(`
 			let configpaymentMenu = {
-				style : stylevariable,
+				//style : stylevariable,
 				container: "paymentMenu",
 				onPaymentCompleted: function(paymentCompletedEvent) {
-                    
+
 					// event handling onPaymentCompleted
 					// please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/payment-orders-resource/
 					alert("purchase completed");
@@ -141,119 +117,89 @@ if (isset($_GET["consumerProfileRef"]) == false) {
 		}
 		};
 
-	payex.hostedView.consumer(configconsumer).open();
-    </script>
-';
-        echo $javascriptoutput;
+        payex.hostedView.consumer(configconsumer).open();
+        ';
+        echo '</script>';
     }
 }
 
-// HTTP GET call(jQuery) from onConsumerIdentified Event
+// HTTP GET call(jQuery) from onConsumerIdentifiedEvent
 if (isset($_GET["consumerProfileRef"]) == true) {
 
-   
-$hostUrls = array('https://example.com', 'https://example.net');
+    $urls = array
+        (
+        "hostUrls" => array('https://example.com', 'https://example.net'),
+        "completeUrl" => "https://example.com/payment-completed",
+        "cancelUrl" => "https://example.com/payment-canceled",
+        "callbackUrl" => "https://api.example.com/payment-callback",
+        "termsOfServiceUrl" => "https://example.com/termsandconditoons.pdf",
+        "logoUrl" => "https://example.com/logo.png",
+    );
 
-$urls = array
-    (
-    "hostUrls" => $hostUrls,
-    "completeUrl" => "https://example.com/payment-completed",
-    "cancelUrl" => "https://example.com/payment-canceled",
-    "callbackUrl" => "https://api.example.com/payment-callback",
-    "termsOfServiceUrl" => "https://example.com/termsandconditoons.pdf",
-    "logoUrl" => "https://example.com/logo.png",
-);
+    $payeeInfo = array
+        (
+        "payeeId" => $settingsdata['payeeId'],
+        "payeeReference" => date("Ymdhis") . rand(100, 1000),
+        "orderReference" => "order-100",
+        "payeeName" => "Merchant1",
+        "productCategory" => "A100",
+    );
 
-$payeeInfo = array
-    (
-    "payeeId" => $settingsdata['payeeId'],
-    "payeeReference" => date("Ymdhis") . rand(100, 1000),
-    "orderReference" => "order-100",
-    "payeeName" => "Merchant1",
-    "productCategory" => "A100",
-);
+    $metadata = array
+        (
+        'key1' => 'value1',
+        'key2' => 'value2',
+    );
 
-$metadata = array
-    (
-    'key1' => 'value1',
-    'key2' => 'value2',
-);
+    $creditCard = array
+        (
+        "no3DSecure" => false,
+        "no3DSecureForStoredCard" => false,
+        "rejectCardNot3DSecureEnrolled" => false,
+        "rejectCreditCards" => false,
+        "rejectDebitCards" => false,
+        "rejectConsumerCards" => false,
+        "rejectCorporateCards" => false,
+        "rejectAuthenticationStatusA" => false,
+        "rejectAuthenticationStatusU" => false,
+        "noCvc" => false,
+    );
 
-$creditCard = array
-    (
-    "no3DSecure" => false,
-    "no3DSecureForStoredCard" => false,
-    "rejectCardNot3DSecureEnrolled" => false,
-    "rejectCreditCards" => false,
-    "rejectDebitCards" => false,
-    "rejectConsumerCards" => false,
-    "rejectCorporateCards" => false,
-    "rejectAuthenticationStatusA" => false,
-    "rejectAuthenticationStatusU" => false,
-    "noCvc" => false,
-);
+    $invoice = array
+        (
+        "feeAmount" => 1000,
+        "invoiceType" => "PayExFinancingSe",
+    );
 
-$creditCardroot = array
-    (
-    'creditCard' => $creditCard,
-);
+    $swish = array
+        (
+        "enableEcomOnly" => false,
+    );
 
-$invoice = array
-    (
-    "feeAmount" => 1000,
-    "invoiceType" => "PayExFinancingSe",
-);
+    $items = array(array('creditCard' => $creditCard), array('invoice' => $invoice), array('swish' => $swish));
 
-$invoiceroot = array
-    (
-    'invoice' => $invoice,
-);
+    $paymentorder = array
+        (
+        'operation' => 'Purchase',
+        'intent' => "Authorization",
+        'currency' => "SEK",
+        'amount' => 25000,
+        'vatAmount' => 0,
+        'description' => "Test Purchase",
+        'userAgent' => "Mozilla/5.0",
+        'language' => "nb-NO",
+        'generatePaymentToken' => "false",
+        'disablePaymentMenu' => "false",
+        'urls' => $urls,
+        'payeeInfo' => $payeeInfo,
+        //'metadata' => $metadata,
+        'items' => $items,
+    );
 
-$campaignInvoice = array
-    (
-    "feeAmount" => 2000,
-    "campaignCode" => "Campaign3",
-);
-
-$campaignInvoiceroot = array
-    (
-    'campaignInvoice' => $campaignInvoice,
-);
-
-$swish = array
-    (
-    "enableEcomOnly" => false,
-);
-
-$swishroot = array
-    (
-    'swish' => $swish,
-);
-
-$items = array($creditCardroot, $invoiceroot/*, $campaignInvoiceroot*/, $swishroot);
-
-$paymentorder = array
-    (
-    'operation' => 'Purchase',
-    'intent' => "Authorization",
-    'currency' => "SEK",
-    'amount' => 25000,
-    'vatAmount' => 0,
-    'description' => "Test Purchase",
-    'userAgent' => "Mozilla/5.0",
-    'language' => "nb-NO",
-    'generatePaymentToken' => "false",
-    'disablePaymentMenu' => "false",
-    'urls' => $urls,
-    'payeeInfo' => $payeeInfo,
-    //'metadata' => $metadata,
-    'items' => $items,
-);
-
-$payloadPaymentmenu = array
-    (
-    'paymentorder' => $paymentorder,
-);
+    $payloadPaymentmenu = array
+        (
+        'paymentorder' => $paymentorder,
+    );
 
     $responsePaymentmenu = $request->payex_request(
         $settingsdata['AuthorizationBearer'],
