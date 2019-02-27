@@ -34,27 +34,31 @@ if (isset($_GET["consumerProfileRef"]) == false) {
         json_encode($payloadConsumer)
     );
 
-    $operationsArray = $responseConsumer->{'operations'};
-    $rel = 'view-consumer-identification';
-    $index = array_search($rel, array_column($operationsArray, 'rel'));
+    if ($responseConsumer[1] == 200) {
 
-    // please read about styling here => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/styling/
-    $style = array(
-        'body' => array('backgroundColor' => "#555", 'color' => "#bbb"),
-        'button' => array('backgroundColor' => "#36ac4c", 'color' => "#fff"),
-        'secondaryButton' => array('backgroundColor' => "#555", 'border' => "solid 1px #bbb"),
-        'formGroup' => array('color' => "#bbb", 'backgroundColor' => "#555"),
-        'label' => array('color' => "#bbb"),
-    );
+        $operationsArray = $responseConsumer[0]->{'operations'};
+        $rel = 'view-consumer-identification';
+        $index = array_search($rel, array_column($operationsArray, 'rel'));
+        if ($index == true) {
+            // please read about styling here => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/styling/
+            $style = array(
+                'body' => array('backgroundColor' => "#555", 'color' => "#bbb"),
+                'button' => array('backgroundColor' => "#36ac4c", 'color' => "#fff"),
+                'secondaryButton' => array('backgroundColor' => "#555", 'border' => "solid 1px #bbb"),
+                'formGroup' => array('color' => "#bbb", 'backgroundColor' => "#555"),
+                'label' => array('color' => "#bbb"),
+            );
 
-    if ($index == true) {
-        $href = $operationsArray[$index]->{'href'};
+            if ($index == true) {
+                $href = $operationsArray[$index]->{'href'};
 
-        echo '<script src="' . $href . '"></script>';
-        echo '<script language="javascript">"use strict";';
-        //echo 'let stylevariable = ' . json_encode($style);
-        echo '
+                echo '<script src="' . $href . '"></script>';
+                echo '<script language="javascript">"use strict";';
+                // uncomment to add styling
+                //echo 'let stylevariable = ' . json_encode($style);
+                echo '
 	    let configconsumer = {
+        // uncomment to add styling
 		//style : stylevariable,
 		container: "checkin",
 		onConsumerIdentified: function(onConsumerIdentifiedEvent) {
@@ -77,6 +81,7 @@ if (isset($_GET["consumerProfileRef"]) == false) {
 			script2.async = false;
 			let node = document.createTextNode(`
 			let configpaymentMenu = {
+                // uncomment to add styling
 				//style : stylevariable,
 				container: "paymentMenu",
 				onPaymentCompleted: function(paymentCompletedEvent) {
@@ -119,7 +124,9 @@ if (isset($_GET["consumerProfileRef"]) == false) {
 
         payex.hostedView.consumer(configconsumer).open();
         ';
-        echo '</script>';
+                echo '</script>';
+            }
+        }
     }
 }
 
@@ -208,14 +215,17 @@ if (isset($_GET["consumerProfileRef"]) == true) {
         json_encode($payloadPaymentmenu)
     );
 
-    $operationsArray = $responsePaymentmenu->{'operations'};
-    $rel = 'view-paymentorder';
-    $index = array_search($rel, array_column($operationsArray, 'rel'));
+    if ($responsePaymentmenu[1] == 201) {
 
-    if ($index == true) {
-        $href = $operationsArray[$index]->{'href'};
+        $operationsArray = $responsePaymentmenu[0]->{'operations'};
+        $rel = 'view-paymentorder';
+        $index = array_search($rel, array_column($operationsArray, 'rel'));
 
-        echo '<p class="paymentmenu-token">' . $href . '</p>';
+        if ($index == true) {
+            $href = $operationsArray[$index]->{'href'};
+
+            echo '<p class="paymentmenu-token">' . $href . '</p>';
+        }
     }
 }
 
