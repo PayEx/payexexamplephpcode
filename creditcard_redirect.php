@@ -89,13 +89,15 @@ try {
         json_encode($payload)
     );
 
-    $operationsArray = $response->{'operations'};
-    $index = array_search('redirect-authorization', array_column($operationsArray, 'rel'));
+    if ($response[1] == 201) {
+        $operationsArray = $response[0]->{'operations'};
+        $index = array_search('redirect-authorization', array_column($operationsArray, 'rel'));
 
-    if ($index == true) {
-        $redirecturl = $operationsArray[$index]->{'href'};
-        header("Location: " . $redirecturl);
-        die();
+        if ($index == true) {
+            $redirecturl = $operationsArray[$index]->{'href'};
+            header("Location: " . $redirecturl);
+            die();
+        }
     }
 
 } catch (Exception $e) {
