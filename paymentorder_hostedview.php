@@ -99,9 +99,9 @@ try {
         json_encode($payload)
     );
 
-    if ($response[1] == 201) {
+    if ($response['statuscode'] == 201) {
 
-        $operationsArray = $response[0]->{'operations'};
+        $operationsArray = $response['response']->{'operations'};
         $rel = 'view-paymentorder';
         $index = array_search($rel, array_column($operationsArray, 'rel'));
 

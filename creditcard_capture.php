@@ -19,9 +19,9 @@ try {
 }
 
 try {
-    if ($responseGET[1] == 200) {
-        $state = $responseGET[0]->{'payment'}->{'state'};
-        $operationsArray = $responseGET[0]->{'operations'};
+    if ($responseGET['statuscode'] == 200) {
+        $state = $responseGET['response']->{'payment'}->{'state'};
+        $operationsArray = $responseGET['response']->{'operations'};
         $rel = 'create-capture';
         //$rel = 'create-reversal';
         $index = array_search($rel, array_column($operationsArray, 'rel'));
@@ -51,11 +51,11 @@ try {
                 json_encode($payload)
             );
 
-            if ($response[1] == 201) {
-                if ($response[0]->{'capture'}->{'transaction'}->{'state'} == 'Completed') {
+            if ($response['statuscode'] == 201) {
+                if ($response['response']->{'capture'}->{'transaction'}->{'state'} == 'Completed') {
                     // do something when capture is Completed
                 }
-                //if ($response[0]->{'reversal'}->{'transaction'}->{'state'} == 'Completed') {/*reversal completed*/}
+                //if ($response['response']->{'reversal'}->{'transaction'}->{'state'} == 'Completed') {/*reversal completed*/}
             }
         } else {
             // state not ready

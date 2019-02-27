@@ -14,8 +14,8 @@ try {
         $settingsdata['baseuri'] . $paymentid,
         '' // payload content not needed, but empty string must be present because of the method parameter
     );
-    if ($response[1] == 200) {
-        // do something with $response[0]
+    if ($response['statuscode'] == 200) {
+        // do something with $response['response']
     }
 } catch (Exception $e) {
     // Exception handling

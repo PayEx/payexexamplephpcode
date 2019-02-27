@@ -34,9 +34,9 @@ if (isset($_GET["consumerProfileRef"]) == false) {
         json_encode($payloadConsumer)
     );
 
-    if ($responseConsumer[1] == 200) {
+    if ($responseConsumer['statuscode'] == 200) {
 
-        $operationsArray = $responseConsumer[0]->{'operations'};
+        $operationsArray = $responseConsumer['response']->{'operations'};
         $rel = 'view-consumer-identification';
         $index = array_search($rel, array_column($operationsArray, 'rel'));
         if ($index == true) {
@@ -215,9 +215,9 @@ if (isset($_GET["consumerProfileRef"]) == true) {
         json_encode($payloadPaymentmenu)
     );
 
-    if ($responsePaymentmenu[1] == 201) {
+    if ($responsePaymentmenu['statuscode'] == 201) {
 
-        $operationsArray = $responsePaymentmenu[0]->{'operations'};
+        $operationsArray = $responsePaymentmenu['response']->{'operations'};
         $rel = 'view-paymentorder';
         $index = array_search($rel, array_column($operationsArray, 'rel'));
 
