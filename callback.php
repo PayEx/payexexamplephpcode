@@ -31,13 +31,13 @@ if ($raw_post_data == true) {
             //$settingsdata['baseuri'] . json_decode($raw_post_data)->{'paymentOrder'}->{'id'}, // paymentOrder
             '' // payload content not needed, but empty string must be present because of the method parameter
         );
-        if ($response == 500) {
+        if ($response[1] == 500) {
             // in case PayEx has an internal error, we want PayEx to send callback later
             http_response_code(500);
         } else {
             // respond back http 200 OK to PayEx(callback server)
             http_response_code(200);
-            // do something with the $response data
+            // do something with the $response[0] data
         }
     } catch (Exception $e) {
         // Exception handling
