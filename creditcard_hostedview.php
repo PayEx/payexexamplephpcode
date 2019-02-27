@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div id="creditcard"></div>
+    <div id="creditcard"></div>
     <?php
 
 include 'resources/payexapi.php';
@@ -90,17 +90,18 @@ try {
         json_encode($payload)
     );
 
-    $operationsArray = $response->{'operations'};
-    $index = array_search('view-authorization',array_column($operationsArray,'rel'));
+    if ($response[1] == 201) {
 
-    if($index == true)
-    {
-        $href = $operationsArray[$index]->{'href'};
-        $hrefcorrect = str_replace('&operation=authorize','',$href);
+        $operationsArray = $response[0]->{'operations'};
+        $index = array_search('view-authorization', array_column($operationsArray, 'rel'));
 
-        echo '
-		<script type="text/javascript" src="' . $hrefcorrect . '"></script>
-        <script language="javascript">
+        if ($index == true) {
+            $href = $operationsArray[$index]->{'href'};
+            $hrefcorrect = str_replace('&operation=authorize', '', $href);
+
+            echo '
+		    <script type="text/javascript" src="' . $hrefcorrect . '"></script>
+            <script language="javascript">
 				"use strict";
 				let config = {
                     container: "creditcard",
@@ -134,6 +135,7 @@ try {
 					//payex.hostedView.creditCard().close();
         </script>
         ';
+        }
     }
 
 } catch (Exception $e) {
