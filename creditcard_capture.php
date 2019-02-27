@@ -5,7 +5,7 @@ $request = new payexapi();
 $settingsdata = include 'resources/settings.php';
 
 // please see the response for creditcard => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/core-payment-resources/card-payments/
-$paymentid = '/psp/creditcard/payments/81c56cfc-7170-4e03-4839-08d6970479c6';
+$paymentid = '/psp/creditcard/payments/a81a3c4d-b25a-4bc8-2c32-08d69c7da718';
 
 try {
     $responseGET = $request->payex_request(
@@ -19,43 +19,48 @@ try {
 }
 
 try {
-    $state = $responseGET->{'payment'}->{'state'};
-    $operationsArray = $responseGET->{'operations'};
-    $rel = 'create-capture';
-    //$rel = 'create-reversal';
-    $index = array_search($rel, array_column($operationsArray, 'rel'));
+    if ($responseGET[1] == 200) {
+        $state = $responseGET[0]->{'payment'}->{'state'};
+        $operationsArray = $responseGET[0]->{'operations'};
+        $rel = 'create-capture';
+        //$rel = 'create-reversal';
+        $index = array_search($rel, array_column($operationsArray, 'rel'));
 
-    if ($state == 'Ready' && $index == true) {
-        $method = $operationsArray[$index]->{'method'};
-        $href = $operationsArray[$index]->{'href'};
+        if ($state == 'Ready' && $index == true) {
+            $method = $operationsArray[$index]->{'method'};
+            $href = $operationsArray[$index]->{'href'};
 
-        $transaction = array
-            (
-            "amount" => 2500,
-            "vatAmount" => 0,
-            "description" => "test capture",
-            "payeeReference" => date("Ymdhis") . rand(100, 1000),
-            "orderReference" => "order-100",
-        );
+            $transaction = array
+                (
+                "amount" => 2500,
+                "vatAmount" => 0,
+                "description" => "test capture",
+                "payeeReference" => date("Ymdhis") . rand(100, 1000),
+                "orderReference" => "order-100",
+            );
 
-        $payload = array
-            (
-            'transaction' => $transaction,
-        );
+            $payload = array
+                (
+                'transaction' => $transaction,
+            );
 
-        $response = $request->payex_request(
-            $method,
-            $settingsdata['AuthorizationBearer'],
-            $href,
-            json_encode($payload)
-        );
+            $response = $request->payex_request(
+                $settingsdata['AuthorizationBearer'],
+                $method,
+                $href,
+                json_encode($payload)
+            );
 
-        if ($response->{'capture'}->{'transaction'}->{'state'} == 'Completed') { /*capture completed*/}
-        //if ($response->{'reversal'}->{'transaction'}->{'state'} == 'Completed') {/*reversal completed*/}
-    } else {
-        // state not ready
+            if ($response[1] == 201) {
+                if ($response[0]->{'capture'}->{'transaction'}->{'state'} == 'Completed') {
+                    // do something when capture is Completed
+                }
+                //if ($response[0]->{'reversal'}->{'transaction'}->{'state'} == 'Completed') {/*reversal completed*/}
+            }
+        } else {
+            // state not ready
+        }
     }
-
 } catch (Exception $e) {
     // Exception handling
 }
