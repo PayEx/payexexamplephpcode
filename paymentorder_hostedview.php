@@ -41,28 +41,28 @@ $metadata = array
 );
 
 $creditCard = array
-(
-"no3DSecure" => false,
-"no3DSecureForStoredCard" => false,
-"rejectCardNot3DSecureEnrolled" => false,
-"rejectCreditCards" => false,
-"rejectDebitCards" => false,
-"rejectConsumerCards" => false,
-"rejectCorporateCards" => false,
-"rejectAuthenticationStatusA" => false,
-"rejectAuthenticationStatusU" => false,
-"noCvc" => false,
+    (
+    "no3DSecure" => false,
+    "no3DSecureForStoredCard" => false,
+    "rejectCardNot3DSecureEnrolled" => false,
+    "rejectCreditCards" => false,
+    "rejectDebitCards" => false,
+    "rejectConsumerCards" => false,
+    "rejectCorporateCards" => false,
+    "rejectAuthenticationStatusA" => false,
+    "rejectAuthenticationStatusU" => false,
+    "noCvc" => false,
 );
 
 $invoice = array
-(
-"feeAmount" => 1000,
-"invoiceType" => "PayExFinancingSe",
+    (
+    "feeAmount" => 1000,
+    "invoiceType" => "PayExFinancingSe",
 );
 
 $swish = array
-(
-"enableEcomOnly" => false,
+    (
+    "enableEcomOnly" => false,
 );
 
 $items = array(array('creditCard' => $creditCard), array('invoice' => $invoice), array('swish' => $swish));
@@ -99,14 +99,16 @@ try {
         json_encode($payload)
     );
 
-    $operationsArray = $response->{'operations'};
-    $rel = 'view-paymentorder';
-    $index = array_search($rel, array_column($operationsArray, 'rel'));
+    if ($response[1] == 201) {
 
-    if ($index == true) {
-        $href = $operationsArray[$index]->{'href'};
+        $operationsArray = $response[0]->{'operations'};
+        $rel = 'view-paymentorder';
+        $index = array_search($rel, array_column($operationsArray, 'rel'));
 
-        echo '
+        if ($index == true) {
+            $href = $operationsArray[$index]->{'href'};
+
+            echo '
 		<script type="text/javascript" src="' . $href . '"></script>
         <script language="javascript">
 				"use strict";
@@ -139,6 +141,7 @@ try {
 					//payex.hostedView.paymentMenu().close();
         </script>
         ';
+        }
     }
 } catch (Exception $e) {
     // Exception handling
