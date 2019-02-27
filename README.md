@@ -33,7 +33,6 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 ===============
 
 Roadmap:
-* better response handling
 * add all instruments => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/payex-payment-instruments/
 
 ===============
