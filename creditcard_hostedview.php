@@ -90,9 +90,9 @@ try {
         json_encode($payload)
     );
 
-    if ($response[1] == 201) {
+    if ($response['statuscode'] == 201) {
 
-        $operationsArray = $response[0]->{'operations'};
+        $operationsArray = $response['response']->{'operations'};
         $index = array_search('view-authorization', array_column($operationsArray, 'rel'));
 
         if ($index == true) {
