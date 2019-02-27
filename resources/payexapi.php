@@ -74,11 +74,18 @@ class payexapi
                     $log .= 'Message: ' . $message . PHP_EOL;
                     $payexapi->logger($log, 'INFO');
                 }
+                return array($jsonresponse,$httpresponsecode);
+                // response[0] = json response
+                // response[1] = http code
+                /*
                 if ($httpresponsecode == '200' || $httpresponsecode == '201') {
+                    // return json response data
                     return $jsonresponse;
                 } else {
+                    // in case http is not 200/201, return only http code
                     return $httpresponsecode;
                 }
+                */
             }
         } catch (Exception $e) {
             if ($settingsdata['logging'] == true) {
