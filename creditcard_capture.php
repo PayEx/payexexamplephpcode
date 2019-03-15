@@ -1,14 +1,14 @@
 <?php
 
-include 'resources/payexapi.php';
-$request = new payexapi();
+include 'resources/Curl.php';
+$request = new Curl();
 $settingsdata = include 'resources/settings.php';
 
 // please see the response for creditcard => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/core-payment-resources/card-payments/
 $paymentid = '/psp/creditcard/payments/a81a3c4d-b25a-4bc8-2c32-08d69c7da718';
 
 try {
-    $responseGET = $request->payex_request(
+    $responseGET = $request->curlRequest(
         $settingsdata['AuthorizationBearer'],
         "GET",
         $settingsdata['baseuri'] . $paymentid,
@@ -19,7 +19,7 @@ try {
 }
 
 try {
-    if ($responseGET['statuscode'] == 200) {
+    if ($responseGET['statusCode'] == 200) {
         $state = $responseGET['response']->{'payment'}->{'state'};
         $operationsArray = $responseGET['response']->{'operations'};
         $rel = 'create-capture';
@@ -30,8 +30,7 @@ try {
             $method = $operationsArray[$index]->{'method'};
             $href = $operationsArray[$index]->{'href'};
 
-            $transaction = array
-                (
+            $transaction = array(
                 "amount" => 2500,
                 "vatAmount" => 0,
                 "description" => "test capture",
@@ -39,8 +38,7 @@ try {
                 "orderReference" => "order-100",
             );
 
-            $payload = array
-                (
+            $payload = array(
                 'transaction' => $transaction,
             );
 
@@ -51,7 +49,7 @@ try {
                 json_encode($payload)
             );
 
-            if ($response['statuscode'] == 201) {
+            if ($response['statusCode'] == 201) {
                 if ($response['response']->{'capture'}->{'transaction'}->{'state'} == 'Completed') {
                     // do something when capture is Completed
                 }

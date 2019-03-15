@@ -1,7 +1,7 @@
 <?php
 
-include 'resources/payexapi.php';
-$request = new payexapi();
+include 'resources/Curl.php';
+$request = new Curl();
 $settingsdata = include 'resources/settings.php';
 
 // please read about callback handling => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference
@@ -12,7 +12,6 @@ if ($raw_post_data == true) {
 
     // logg
     if ($settingsdata['logging'] == true) {
-
         $folder = 'logs';
         if (!is_dir($folder)) {
             mkdir($folder, 0777);
@@ -24,15 +23,15 @@ if ($raw_post_data == true) {
 
     // API request
     try {
-        $response = $request->payex_request(
+        $response = $request->curlRequest(
             $settingsdata['AuthorizationBearer'],
             "GET",
             $settingsdata['baseuri'] . json_decode($raw_post_data)->{'payment'}->{'id'}, //payment
             //$settingsdata['baseuri'] . json_decode($raw_post_data)->{'paymentOrder'}->{'id'}, // paymentOrder
             '' // payload content not needed, but empty string must be present because of the method parameter
         );
-        if ($response['statuscode'] == 500) {
-            // in case we receive an internal error, we want PayEx to send callback later
+        if ($response['statusCode'] == 500) {
+            // in case we receive an internal error from PayEx, we want PayEx to send a callback later
             http_response_code(500);
         } else {
             // respond back http 200 OK to PayEx(callback server)
