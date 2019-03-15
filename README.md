@@ -28,7 +28,7 @@ Getting Started:
 regarding token please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin/
 regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin-account-interface-and-search/
 
-3. edit php files in this folder(choose a payment flow), change parameters to your liking.
+3. edit php files in this folder(choose a payment flow), change request parameters to your liking.
 4. In your root folder of the files from"payex_example_php_code" run command-> composer install
 5. ready
 
