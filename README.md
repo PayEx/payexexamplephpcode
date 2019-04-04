@@ -22,15 +22,14 @@ Getting Started:
 2. edit resources/settings.php
  - AuthorizationBearer (AuthorizationBearer = token)
  - payeeId (Merchant ID)
- - baseuri (environment API)
+ - baseuri (environment API) - change to production baseuri to go live
  - logging (value "true" only for testing purpose, not recommended when having huge transaction volumes)
 
 regarding token please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin/
 regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin-account-interface-and-search/
 
 3. edit php files in this folder(choose a payment flow), change request parameters to your liking.
-4. In your root folder of the files from"payex_example_php_code" run command-> composer install
-5. ready
+4. ready
 
 ===============
 
