@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>creditcard redirect</title>
-    <script src="jquery.min.js"></script>
-</head>
-
-<body>
-    <div id="creditcard"></div>
-    <?php
+<?php
 
 include 'resources/Curl.php';
 $request = new Curl();
 $settingsdata = include 'resources/settings.php';
 
-
-$urls = [
+// HTTP GET call(jQuery) from onConsumerIdentifiedEvent - see templates/checkout.php in templates
+if (isset($_GET["consumerProfileRef"]) == true) {
+    $urls = [
     "hostUrls" => ['https://example.com', 'https://example.net'],
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
@@ -24,27 +15,20 @@ $urls = [
     "logoUrl" => "https://example.com/logo.png",
 ];
 
-$payeeInfo = [
+    $payeeInfo = [
     "payeeId" => $settingsdata['payeeId'],
     "payeeReference" => date("Ymdhis") . rand(100, 1000),
     "orderReference" => "order-100",
     "payeeName" => "Merchant1",
     "productCategory" => "A100",
-];
+    ];
 
-$prices = [
-    "type" => "creditcard",
-    "amount" => 2500,
-    "vatAmount" => 0,
-];
-
-$metadata = [
+    $metadata = [
     'key1' => 'value1',
     'key2' => 'value2',
-];
+    ];
 
-$creditCard = [
-    "no3DSecure" => false,
+    $creditCard = [
     "no3DSecure" => false,
     "no3DSecureForStoredCard" => false,
     "rejectCardNot3DSecureEnrolled" => false,
@@ -54,52 +38,61 @@ $creditCard = [
     "rejectCorporateCards" => false,
     "rejectAuthenticationStatusA" => false,
     "rejectAuthenticationStatusU" => false,
-];
+    "noCvc" => false,
+    ];
 
-$payment = [
+    $invoice = [
+    "feeAmount" => 1000,
+    "invoiceType" => "PayExFinancingSe",
+    ];
+
+    $swish = [
+    "enableEcomOnly" => false,
+    ];
+
+    $items = [ ['creditCard' => $creditCard], ['invoice' => $invoice], ['swish' => $swish] ];
+
+    $consumerProfileRef = filter_input(INPUT_GET, 'consumerProfileRef', FILTER_SANITIZE_STRING);
+
+    $payer = ['consumerProfileRef' => $consumerProfileRef];
+
+    $paymentorder = [
     'operation' => 'Purchase',
     'intent' => "Authorization",
     'currency' => "SEK",
-    'prices' => [$prices],
+    'amount' => 25000,
+    'vatAmount' => 0,
     'description' => "Test Purchase",
     'userAgent' => "Mozilla/5.0",
-    'language' => "nb-NO",
+    'language' => "en-US",
     'generatePaymentToken' => "false",
+    'disablePaymentMenu' => "false",
     'urls' => $urls,
     'payeeInfo' => $payeeInfo,
+    'payer' => $payer,
     //'metadata' => $metadata,
-];
+    'items' => $items,
+    ];
 
-$payload = [
-    'payment' => $payment,
-    'creditCard' => $creditCard,
-];
+    $payloadPaymentmenu = [
+    'paymentorder' => $paymentorder,
+    ];
 
-try {
-    $response = $request->curlRequest(
+    $responsePaymentmenu = $request->curlRequest(
         $settingsdata['AuthorizationBearer'],
         "POST",
-        $settingsdata['baseuri'] . "/psp/creditcard/payments",
-        json_encode($payload)
-    );
+        $settingsdata['baseuri'] . "/psp/paymentorders",
+        json_encode($payloadPaymentmenu)
+);
 
-    if ($response['statusCode'] == 201) {
-        $operationsArray = $response['response']->{'operations'};
-        $index = array_search('view-authorization', array_column($operationsArray, 'rel'));
+    if ($responsePaymentmenu['statusCode'] == 201) {
+        $operationsArray = $responsePaymentmenu['response']->{'operations'};
+        $index = array_search('view-paymentorder', array_column($operationsArray, 'rel'));
 
         if ($index == true) {
             $href = $operationsArray[$index]->{'href'};
-            //$dataout = ["creditcardhref" => $href];
-            //echo $twig->render('creditcard.html', $dataout);
-            include 'templates/creditcard.php';
+            echo '<p class="paymentmenu-token">' . $href . '</p>';
             exit;
         }
     }
-} catch (Exception $e) {
-    // Exception handling
 }
-
-?>
-</body>
-
-</html>

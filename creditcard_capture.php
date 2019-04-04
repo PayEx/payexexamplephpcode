@@ -5,7 +5,7 @@ $request = new Curl();
 $settingsdata = include 'resources/settings.php';
 
 // please see the response for creditcard => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/core-payment-resources/card-payments/
-$paymentid = '/psp/creditcard/payments/a81a3c4d-b25a-4bc8-2c32-08d69c7da718';
+$paymentid = '/psp/creditcard/payments/edec981d-0f8d-446e-9245-08d697e9335c';
 
 try {
     $responseGET = $request->curlRequest(
@@ -22,27 +22,25 @@ try {
     if ($responseGET['statusCode'] == 200) {
         $state = $responseGET['response']->{'payment'}->{'state'};
         $operationsArray = $responseGET['response']->{'operations'};
-        $rel = 'create-capture';
-        //$rel = 'create-reversal';
-        $index = array_search($rel, array_column($operationsArray, 'rel'));
+        $index = array_search('create-capture', array_column($operationsArray, 'rel'));
 
         if ($state == 'Ready' && $index == true) {
             $method = $operationsArray[$index]->{'method'};
             $href = $operationsArray[$index]->{'href'};
 
-            $transaction = array(
-                "amount" => 2500,
+            $transaction = [
+                "amount" => 21500,
                 "vatAmount" => 0,
                 "description" => "test capture",
                 "payeeReference" => date("Ymdhis") . rand(100, 1000),
                 "orderReference" => "order-100",
-            );
+            ];
 
-            $payload = array(
+            $payload = [
                 'transaction' => $transaction,
-            );
+            ];
 
-            $response = $request->payex_request(
+            $response = $request->curlRequest(
                 $settingsdata['AuthorizationBearer'],
                 $method,
                 $href,
@@ -50,10 +48,10 @@ try {
             );
 
             if ($response['statusCode'] == 201) {
-                if ($response['response']->{'capture'}->{'transaction'}->{'state'} == 'Completed') {
-                    // do something when capture is Completed
-                }
-                //if ($response['response']->{'reversal'}->{'transaction'}->{'state'} == 'Completed') {/*reversal completed*/}
+                // $state = $response['response']->{'capture'}->{'transaction'}->{'state'};
+                // capture created
+            } elseif ($response['statusCode'] == 400) {
+                //check problems object in JSON $response['response']
             }
         } else {
             // state not ready

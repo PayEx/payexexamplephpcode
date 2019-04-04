@@ -9,7 +9,7 @@ $settingsdata = include 'resources/settings.php';
 $raw_post_data = file_get_contents('php://input');
 
 if ($raw_post_data == true) {
-
+    
     // logg
     if ($settingsdata['logging'] == true) {
         $folder = 'logs';

@@ -13,35 +13,35 @@ include 'resources/Curl.php';
 $request = new Curl();
 $settingsdata = include 'resources/settings.php';
 
-$urls = array(
-    "hostUrls" => array('https://example.com', 'https://example.net'),
+$urls = [
+    "hostUrls" => ['https://example.com', 'https://example.net'],
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
     "callbackUrl" => "https://api.example.com/payment-callback",
     "termsOfServiceUrl" => "https://example.com/termsandconditoons.pdf",
     "logoUrl" => "https://example.com/logo.png",
-);
+];
 
-$payeeInfo = array(
+$payeeInfo = [
     "payeeId" => $settingsdata['payeeId'],
     "payeeReference" => date("Ymdhis") . rand(100, 1000),
     "orderReference" => "order-100",
     "payeeName" => "Merchant1",
     "productCategory" => "A100",
-);
+];
 
-$prices = array(
+$prices = [
     "type" => "creditcard",
     "amount" => 2500,
     "vatAmount" => 0,
-);
+];
 
-$metadata = array(
+$metadata = [
     'key1' => 'value1',
     'key2' => 'value2',
-);
+];
 
-$creditCard = array(
+$creditCard = [
     "no3DSecure" => false,
     "no3DSecureForStoredCard" => false,
     "rejectCardNot3DSecureEnrolled" => false,
@@ -52,13 +52,13 @@ $creditCard = array(
     "rejectAuthenticationStatusA" => false,
     "rejectAuthenticationStatusU" => false,
     "noCvc" => false,
-);
+];
 
-$payment = array(
+$payment = [
     'operation' => 'Purchase',
     'intent' => "Authorization",
     'currency' => "SEK",
-    'prices' => array($prices),
+    'prices' => [$prices],
     'description' => "Test Purchase",
     'userAgent' => "Mozilla/5.0",
     'language' => "nb-NO",
@@ -66,12 +66,12 @@ $payment = array(
     'urls' => $urls,
     'payeeInfo' => $payeeInfo,
     //'metadata' => $metadata,
-);
+];
 
-$payload = array(
+$payload = [
     'payment' => $payment,
     'creditCard' => $creditCard,
-);
+];
 
 try {
     $response = $request->curlRequest(
