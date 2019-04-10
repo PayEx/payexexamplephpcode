@@ -6,17 +6,6 @@ PayEx API (PHP)
 
 ===============
 
-requirements:
-* PHP 7.1.9 (may work with other PHP versions)
-* PHP extension curl
-* PHP twig - https://twig.symfony.com/
-* Composer - https://getcomposer.org/
-* jQuery v3.3.1(included in the project => jquery.min.js)
-
-===============
-
-===============
-
 Getting Started:
 1. unzip "payex_example_php_code.zip" to your test/production environment
 2. edit resources/settings.php
