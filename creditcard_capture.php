@@ -24,7 +24,7 @@ try {
         $operationsArray = $responseGET['response']->{'operations'};
         $index = array_search('create-capture', array_column($operationsArray, 'rel'));
 
-        if ($state == 'Ready' && $index == true) {
+        if ($index == true) {
             $method = $operationsArray[$index]->{'method'};
             $href = $operationsArray[$index]->{'href'};
 
@@ -48,7 +48,6 @@ try {
             );
 
             if ($response['statusCode'] == 201) {
-                // $state = $response['response']->{'capture'}->{'transaction'}->{'state'};
                 // capture created
             } elseif ($response['statusCode'] == 400) {
                 //check problems object in JSON $response['response']

@@ -14,7 +14,6 @@ include 'resources/Curl.php';
 $request = new Curl();
 $settingsdata = include 'resources/settings.php';
 
-
 $urls = [
     "hostUrls" => ['https://example.com', 'https://example.net'],
     "completeUrl" => "https://example.com/payment-completed",

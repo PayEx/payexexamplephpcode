@@ -63,8 +63,8 @@ let configconsumer = {
         let phpfiletocall = "hostedview_checkout_consumerProfileRef.php";
         $.get(phpfiletocall + "?consumerProfileRef=" + onConsumerIdentifiedEvent.consumerProfileRef, function(
             data) {
-            let parsedHtmlArr = $.parseHTML(data);
-            let paymentmenutokenobject = parsedHtmlArr.find(x => x.className == "paymentmenu-token");
+            let parsedHtmlArray = $.parseHTML(data);
+            let paymentmenutokenobject = parsedHtmlArray.find(x => x.className == "paymentmenu-token");
             let srcUrl = paymentmenutokenobject.innerText.trim();
             let script = document.createElement("script");
             script.type = "text/javascript";
