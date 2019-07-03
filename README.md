@@ -7,7 +7,7 @@ PayEx API (PHP)
 ===============
 
 Getting Started:
-1. unzip "payex_example_php_code.zip" to your test/production environment
+1. unzip "payexexamplephpcode.zip" to your test/production environment
 2. edit resources/settings.php
  - AuthorizationBearer (AuthorizationBearer = token)
  - payeeId (Merchant ID)
