@@ -13,13 +13,19 @@
     <section class="section">
         <div class="container">
             <div class="tile is-ancestor">
-                <div id="checkin" class="tile is-3 is-vertical is-parent box">
-                    <p class="title">Consumer</p>
+                <div class="tile is-vertical is-parent">
+                    <div id="checkin" class="tile is-child">
+                        <p class="title">Consumer</p>
+                    </div>
                 </div>
-                <div id="paymentMenu" class="tile is-child box">
-                    <p class="title">Paymentmenu</p>
+                <div class="tile is-vertical is-parent">
+                    <div id="paymentMenu" class="tile is-child">
+                        <p class="title">Paymentmenu</p>
+                    </div>
                 </div>
             </div>
+        </div>
+        </div>
     </section>
 </body>
 
@@ -56,16 +62,17 @@ let configconsumer = {
     // uncomment to add styling
     //style : stylevariable,
     container: "checkin",
+    culture: 'en-US',
     onConsumerIdentified: function(onConsumerIdentifiedEvent) {
         // event handling onConsumerIdentified
         // please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/consumers-resource/
         // HTTP GET call(jQuery)
-        let phpfiletocall = "hostedview_checkout_consumerProfileRef.php";
-        $.get(phpfiletocall + "?consumerProfileRef=" + onConsumerIdentifiedEvent.consumerProfileRef, function(
+        let scriptName = "resources/script_checkout_consumerProfileRef.php";
+        $.get(scriptName + "?consumerProfileRef=" + onConsumerIdentifiedEvent.consumerProfileRef, function(
             data) {
             let parsedHtmlArray = $.parseHTML(data);
-            let paymentmenutokenobject = parsedHtmlArray.find(x => x.className == "paymentmenu-token");
-            let srcUrl = paymentmenutokenobject.innerText.trim();
+            let paymentordertoken = parsedHtmlArray.find(x => x.className == "paymentorder-JS-sourceuri");
+            let srcUrl = paymentordertoken.innerText.trim();
             let script = document.createElement("script");
             script.type = "text/javascript";
             script.async = true;

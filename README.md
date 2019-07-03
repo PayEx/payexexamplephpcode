@@ -12,12 +12,12 @@ Getting Started:
  - AuthorizationBearer (AuthorizationBearer = token)
  - payeeId (Merchant ID)
  - baseuri (environment API) - change to production baseuri to go live
- - logging (value "true" only for testing purpose, not recommended when having huge transaction volumes)
+ - logging (value "true" only for testing purpose, not recommended when having huge transaction volumes because of synchronous blocking)
 
-regarding token please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin/
+regarding AuthorizationBearer token please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin/
 regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin-account-interface-and-search/
 
-3. edit php files in this folder(choose a payment flow), change request parameters to your liking.
+3. edit php files and change request parameters to your liking.
 4. ready
 
 ===============

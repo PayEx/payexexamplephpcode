@@ -1,8 +1,8 @@
 <?php
 
-include 'resources/Curl.php';
-$request = new Curl();
-$settingsdata = include 'resources/settings.php';
+require_once 'resources/Curl.php';
+$request = new \resources\Curl();
+$settingsdata = require_once 'resources/settings.php';
 
 // type of flow - initiate-consumer-session
 

@@ -1,14 +1,14 @@
 <?php
 
-include 'resources/Curl.php';
-$request = new Curl();
-$settingsdata = include 'resources/settings.php';
+require_once 'resources/Curl.php';
+$request = new \resources\Curl();
+$settingsdata = require_once 'resources/settings.php';
 
 $urls = [
     "hostUrls" => ['https://example.com', 'https://example.net'],
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
-    "callbackUrl" => "https://api.example.com/payment-callback",
+    "callbackUrl" => "https://payexexamplephpcode.000webhostapp.com/resources/script_callback.php",
     "termsOfServiceUrl" => "https://example.com/termsandconditoons.pdf",
     "logoUrl" => "https://example.com/logo.png",
 ];
@@ -60,6 +60,7 @@ $paymentorder = [
     'userAgent' => "Mozilla/5.0",
     'language' => "nb-NO",
     'generatePaymentToken' => "false",
+    'language' => "en-US",
     'disablePaymentMenu' => "false",
     'urls' => $urls,
     'payeeInfo' => $payeeInfo,
@@ -85,7 +86,7 @@ try {
         
         if ($index == true) {
             $href = $operationsArray[$index]->{'href'};
-            include 'templates/paymentmenu.php';
+            include 'templates/paymentorder.php';
             exit;
         }
     }

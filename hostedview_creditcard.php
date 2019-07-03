@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html>
+<?php
 
-<head>
-    <title>creditcard redirect</title>
-    <script src="jquery.min.js"></script>
-</head>
-
-<body>
-    <div id="creditcard"></div>
-    <?php
-
-include 'resources/Curl.php';
-$request = new Curl();
-$settingsdata = include 'resources/settings.php';
+require_once 'resources/Curl.php';
+$request = new \resources\Curl();
+$settingsdata = require_once 'resources/settings.php';
 
 $urls = [
     "hostUrls" => ['https://example.com', 'https://example.net'],
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
-    "callbackUrl" => "https://api.example.com/payment-callback",
+    "callbackUrl" => "https://payexexamplephpcode.000webhostapp.com/resources/script_callback.php",
     "termsOfServiceUrl" => "https://example.com/termsandconditoons.pdf",
     "logoUrl" => "https://example.com/logo.png",
 ];
@@ -64,6 +54,7 @@ $payment = [
     'userAgent' => "Mozilla/5.0",
     'language' => "nb-NO",
     'generatePaymentToken' => "false",
+    'language' => "en-US",
     'urls' => $urls,
     'payeeInfo' => $payeeInfo,
     //'metadata' => $metadata,
@@ -97,8 +88,3 @@ try {
 } catch (Exception $e) {
     // Exception handling
 }
-
-?>
-</body>
-
-</html>

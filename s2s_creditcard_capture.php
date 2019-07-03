@@ -1,8 +1,8 @@
 <?php
 
-include 'resources/Curl.php';
-$request = new Curl();
-$settingsdata = include 'resources/settings.php';
+require_once 'resources/Curl.php';
+$request = new \resources\Curl();
+$settingsdata = require_once 'resources/settings.php';
 
 // please see the response for creditcard => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/core-payment-resources/card-payments/
 $paymentid = '/psp/creditcard/payments/6be073a6-d494-4277-ff9f-08d6c7cabe65';

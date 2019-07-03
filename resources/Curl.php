@@ -1,32 +1,9 @@
 <?php
 
+namespace resources;
+
 class Curl
 {
-    /**
-    * Logging method.
-    *
-    * @param string $log content to log.
-    * @param string $type LogLevel type.
-    *
-    * @return void
-    */
-    public function logger($log, $type)
-    {
-        $newlog = PHP_EOL . date("Y-m-d h:i:s") . PHP_EOL;
-        $newlog .= "LogLevel:" . $type . PHP_EOL;
-        $newlog .= $log;
-        $newlog .= "-------------------------";
-        $folder = 'logs';
-        if (!is_dir($folder)) {
-            mkdir($folder, 0777);
-        }
-        try {
-            file_put_contents($folder . '/log_' . date("Ymd") . '.txt', $newlog, FILE_APPEND);
-        } catch (Exception $e) {
-            //echo 'Caught exception: ',  $e->getMessage(), "\n";
-        }
-    }
-
     /**
      * Curl Request.
      *
@@ -36,12 +13,13 @@ class Curl
      * @param string $payload
      *
      * @return array
-     * response[0] = JSON Response data.
-     * response[1] = HTTP Code.
+     * response['response'] = decoded JSON response data.
+     * response['statusCode'] = HTTP Code.
      */
     public function curlRequest($authorizationBearer, $httpMethod, $uri, $payload)
     {
-        $CurlClass = new Curl();
+        require_once 'Logger.php';
+        $logger = new \resources\Logger();
         $settingsData = include 'settings.php';
 
         try {
@@ -68,7 +46,7 @@ class Curl
             if ($settingsData['logging'] == true) {
                 $log = "";
                 $log .= "Caught exception: " . $e->getMessage() . PHP_EOL;
-                $CurlClass->logger($log, 'ERROR');
+                $logger->createLog('API', $log, 'ERROR');
             }
         }
 
@@ -94,7 +72,7 @@ class Curl
 
                 $log .= "HTTP Code: " . $httpResponseCode . PHP_EOL;
                 $log .= 'Message: ' . $message . PHP_EOL;
-                $CurlClass->logger($log, 'INFO');
+                $logger->createLog('API', $log, 'INFO');
             }
             return array(
                 'response' => $jsonResponse,
@@ -105,7 +83,7 @@ class Curl
                 $log = "";
                 $log .= "Curl error number: " . $errno . PHP_EOL;
                 $log .= "Curl message: " . $curlMessage . PHP_EOL;
-                $CurlClass->logger($log, 'ERROR');
+                $logger->createLog('API', $log, 'ERROR');
             }
         }
     }
