@@ -77,7 +77,7 @@ try {
         $operationsArray = $response['response']->{'operations'};
         $index = array_search('view-authorization', array_column($operationsArray, 'rel'));
 
-        if ($index == true) {
+        if (isset($index)) {
             $href = $operationsArray[$index]->{'href'};
             //$dataout = ["creditcardhref" => $href];
             //echo $twig->render('creditcard.html', $dataout);

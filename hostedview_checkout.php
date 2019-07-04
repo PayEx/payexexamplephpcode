@@ -26,7 +26,7 @@ if ($responseConsumer['statusCode'] == 200) {
     $rel = 'view-consumer-identification';
     $index = array_search($rel, array_column($operationsArray, 'rel'));
 
-    if ($index == true) {
+    if (isset($index)) {
         $href = $operationsArray[$index]->{'href'};
         include 'templates/checkout.php';
         exit;

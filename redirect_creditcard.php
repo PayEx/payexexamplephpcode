@@ -86,7 +86,7 @@ try {
         $operationsArray = $response['response']->{'operations'};
         $index = array_search('redirect-authorization', array_column($operationsArray, 'rel'));
 
-        if ($index == true) {
+        if (isset($index)) {
             $redirecturl = $operationsArray[$index]->{'href'};
 
             // alternative 1

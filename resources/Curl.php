@@ -56,8 +56,8 @@ class Curl
                 $log = "";
                 $log .= "Request method: " . $httpMethod . PHP_EOL;
                 $log .= "Request URI: " . $uri . PHP_EOL;
-                $log .= "Request: " . $payload . PHP_EOL;
-                $log .= "Response: " . $response . PHP_EOL;
+                $log .= "Request body: " . $payload . PHP_EOL;
+                $log .= "Response body: " . $response . PHP_EOL;
                 if ($httpResponseCode == '200' || $httpResponseCode == '201') {
                     $message = 'OK HTTP Request';
                 } elseif ($httpResponseCode == '400') {

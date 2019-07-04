@@ -5,7 +5,7 @@ $request = new \resources\Curl();
 $settingsdata = require_once 'resources/settings.php';
 
 // please see the response for creditcard => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/core-payment-resources/card-payments/
-$paymentid = '/psp/creditcard/payments/6be073a6-d494-4277-ff9f-08d6c7cabe65';
+$paymentid = '/psp/creditcard/payments/f9651198-6b17-454d-3741-08d6ffb6e386';
 
 try {
     $responseGET = $request->curlRequest(
@@ -24,7 +24,7 @@ try {
         $operationsArray = $responseGET['response']->{'operations'};
         $index = array_search('create-capture', array_column($operationsArray, 'rel'));
 
-        if ($index == true) {
+        if (isset($index)) {
             $method = $operationsArray[$index]->{'method'};
             $href = $operationsArray[$index]->{'href'};
 

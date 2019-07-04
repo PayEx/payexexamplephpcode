@@ -84,7 +84,7 @@ try {
         $operationsArray = $response['response']->{'operations'};
         $index = array_search('view-paymentorder', array_column($operationsArray, 'rel'));
         
-        if ($index == true) {
+        if (isset($index)) {
             $href = $operationsArray[$index]->{'href'};
             include 'templates/paymentorder.php';
             exit;
