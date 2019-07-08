@@ -13,13 +13,14 @@ require_once 'resources/Curl.php';
 $request = new \resources\Curl();
 $settingsdata = require_once 'resources/settings.php';
 
+$hostUrl = "https://payexexamplephpcode.000webhostapp.com";
+
 $urls = [
-    "hostUrls" => ['https://example.com', 'https://example.net'],
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
-    "callbackUrl" => "https://payexexamplephpcode.000webhostapp.com/resources/script_callback.php",
-    "termsOfServiceUrl" => "https://example.com/termsandconditoons.pdf",
-    "logoUrl" => "https://example.com/logo.png",
+    "callbackUrl" => $hostUrl."/resources/script_callback.php",
+    "termsOfServiceUrl" => $hostUrl."/termsandconditions.pdf",
+    "logoUrl" => $hostUrl."/logo.png",
 ];
 
 $payeeInfo = [
@@ -52,6 +53,7 @@ $creditCard = [
     "rejectAuthenticationStatusA" => false,
     "rejectAuthenticationStatusU" => false,
     "noCvc" => false,
+    "mailOrderTelephoneOrder" => "false",
 ];
 
 $payment = [
