@@ -1,6 +1,7 @@
 PayEx API (PHP)
 
 ===============
+
 Getting Started:
 1. unzip "payexexamplephpcode.zip" to your test/production environment
 2. edit resources/settings.php
@@ -16,6 +17,7 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 4. ready
 
 ===============
+
 Roadmap:
 * add all instruments => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/payex-payment-instruments/
 
