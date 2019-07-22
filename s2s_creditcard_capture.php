@@ -1,7 +1,9 @@
 <?php
 
 require_once 'resources/Curl.php';
-$request = new \resources\Curl();
+use \resources\Curl;
+
+$request = new Curl();
 $settingsdata = require_once 'resources/settings.php';
 
 // please see the response for creditcard => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/core-payment-resources/card-payments/

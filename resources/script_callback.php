@@ -4,8 +4,12 @@ namespace resources;
 
 require_once 'Curl.php';
 require_once 'Logger.php';
-$request = new \resources\Curl();
-$logger = new \resources\Logger();
+
+use \resources\Curl;
+use \resources\Logger;
+
+$request = new Curl();
+$logger = new Logger();
 $settingsData = require_once 'settings.php';
 
 // please read about callback handling => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference

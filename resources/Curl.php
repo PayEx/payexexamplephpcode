@@ -2,6 +2,9 @@
 
 namespace resources;
 
+require_once 'Logger.php';
+use \resources\Logger;
+
 class Curl
 {
     /**
@@ -18,8 +21,7 @@ class Curl
      */
     public function curlRequest($authorizationBearer, $httpMethod, $uri, $payload)
     {
-        require_once 'Logger.php';
-        $logger = new \resources\Logger();
+        $logger = new Logger();
         $settingsData = include 'settings.php';
 
         try {

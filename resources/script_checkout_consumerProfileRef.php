@@ -3,7 +3,9 @@
 namespace resources;
 
 require_once 'Curl.php';
-$request = new \resources\Curl();
+use \resources\Curl;
+
+$request = new Curl();
 $settingsdata = require_once 'settings.php';
 
 // HTTP GET call(jQuery) from onConsumerIdentifiedEvent - see templates/checkout.php in templates
