@@ -6,14 +6,14 @@ use \resources\Curl;
 $request = new Curl();
 $settingsdata = require_once 'resources/settings.php';
 
-$hostUrl = "https://payexexamplephpcode.000webhostapp.com";
+$hostUrl = $settingsdata['hosturi'];
 
 $urls = [
-    "hostUrls" => [$hostUrl],
+    "hostUrls" => [$hostUrl[0]],
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
-    "callbackUrl" => $hostUrl."/resources/script_callback.php",
-    "termsOfServiceUrl" => $hostUrl."/termsandconditions.pdf",
+    "callbackUrl" => "https://payexexamplephpcode.000webhostapp.com/resources/script_callback.php",
+    "termsOfServiceUrl" => "https://payexexamplephpcode.000webhostapp.com/termsandconditions.pdf",
 ];
 
 $payeeInfo = [

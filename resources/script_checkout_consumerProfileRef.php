@@ -10,15 +10,15 @@ $settingsdata = require_once 'settings.php';
 
 // HTTP GET call(jQuery) from onConsumerIdentifiedEvent - see templates/checkout.php in templates
 
-$hostUrl = "https://payexexamplephpcode.000webhostapp.com";
+$hostUrl = $settingsdata['hosturi'];
 
 if (isset($_GET["consumerProfileRef"]) == true) {
     $urls = [
-    "hostUrls" => [$hostUrl],
+    "hostUrls" => [$hostUrl[0]],
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
-    "callbackUrl" => $hostUrl."/resources/script_callback.php",
-    "termsOfServiceUrl" => $hostUrl."/termsandconditions.pdf",
+    "callbackUrl" => "https://payexexamplephpcode.000webhostapp.com/resources/script_callback.php",
+    "termsOfServiceUrl" => "https://payexexamplephpcode.000webhostapp.com/termsandconditions.pdf",
 ];
 
     $payeeInfo = [

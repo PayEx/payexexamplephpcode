@@ -6,10 +6,11 @@ Getting Started:
 1. unzip "payexexamplephpcode.zip" to your test/production environment
 2. edit resources/settings.php
  - AuthorizationBearer (AuthorizationBearer = token)
+ - hosturi (url to your site, used only for hosted view)
  - payeeId (Merchant ID)
  - baseuri (environment API) - change to production baseuri to go live
  - logging (value "true" only for testing purpose, not recommended when having huge transaction volumes because of synchronous blocking)
-
+ 
 regarding AuthorizationBearer token please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin/
 regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin-account-interface-and-search/
 

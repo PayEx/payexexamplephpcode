@@ -20,9 +20,9 @@ $hostUrl = "https://payexexamplephpcode.000webhostapp.com";
 $urls = [
     "completeUrl" => "https://example.com/payment-completed",
     "cancelUrl" => "https://example.com/payment-canceled",
-    "callbackUrl" => $hostUrl."/resources/script_callback.php",
-    "termsOfServiceUrl" => $hostUrl."/termsandconditions.pdf",
-    "logoUrl" => $hostUrl."/logo.png",
+    "callbackUrl" => "https://payexexamplephpcode.000webhostapp.com/resources/script_callback.php",
+    "termsOfServiceUrl" => "https://payexexamplephpcode.000webhostapp.com/termsandconditions.pdf",
+    "logoUrl" => "https://payexexamplephpcode.000webhostapp.com//logo.png",
 ];
 
 $payeeInfo = [
