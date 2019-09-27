@@ -17,6 +17,15 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 3. edit php files and change request parameters to your liking.
 4. ready
 
+Note:
+Product : Checkout
+ - hostedview_checkout.php
+ - hostedview_paymentorder.php
+
+Product : Payment pages
+ - hostedview_creditcard.php
+ - redirect_creditcard.php
+
 ===============
 
 Roadmap:
