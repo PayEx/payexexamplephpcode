@@ -2,6 +2,12 @@ PayEx API (PHP)
 
 ===============
 
+requirements:
+* PHP 7.3.3
+(may work with other PHP versions)
+* PHP extension curl
+* jQuery v3.3.1(included in the project => jquery.min.js)
+
 Getting Started:
 1. unzip "payexexamplephpcode.zip" to your test/production environment
 2. edit resources/settings.php
