@@ -19,8 +19,8 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 
 Note:
 Product : Checkout
- - hostedview_checkout.php
- - hostedview_paymentorder.php
+ - hostedview_checkout.php (paymentmenu with checkin edit paymentmenu parameters at resources/script_checkout_consumerProfileRef.php)
+ - hostedview_paymentorder.php (paymentmenu without checkin)
 
 Product : Payment pages
  - hostedview_creditcard.php
