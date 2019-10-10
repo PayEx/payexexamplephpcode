@@ -33,12 +33,6 @@ $payeeInfo = [
     "productCategory" => "A100",
 ];
 
-$prices = [
-    "type" => "creditcard",
-    "amount" => 2500,
-    "vatAmount" => 0,
-];
-
 $metadata = [
     'key1' => 'value1',
     'key2' => 'value2',
@@ -62,7 +56,13 @@ $payment = [
     'operation' => 'Purchase',
     'intent' => "Authorization",
     'currency' => "SEK",
-    'prices' => [$prices],
+    'prices' => [
+        [
+        "type" => "creditcard",
+        "amount" => 2500,
+        "vatAmount" => 0,
+        ]
+    ],
     'description' => "Test Purchase",
     'userAgent' => "Mozilla/5.0",
     'language' => "nb-NO",
