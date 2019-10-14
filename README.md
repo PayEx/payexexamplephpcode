@@ -1,14 +1,12 @@
-### PayEx API - PHP code example
+# PayEx API - PHP code example
 
-===============
-
-### requirements
+## requirements
 * PHP 7.3.3
 (may work with other PHP versions)
 * PHP extension curl
 * jQuery v3.4.1(included)
 
-Getting Started:
+## Getting Started
 1. unzip "payexexamplephpcode.zip" to your test/production environment
 2. edit resources/settings.php
 - AuthorizationBearer (AuthorizationBearer = token)
@@ -23,7 +21,7 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 3. edit php files and change request parameters to your liking.
 4. ready
 
-### About products
+## About products
 
 Product : Checkout
 - hostedview_checkout.php 
@@ -36,28 +34,20 @@ Product : Payment pages
 - hostedview_creditcard.php
 - redirect_creditcard.php
 
-===============
-
-### Roadmap
+## Roadmap
 - add all instruments => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/payex-payment-instruments/
 
-===============
-
-### Change Log
+# Change Log
 All notable changes to this project will be documented in this file.
   
-### 2019-10-14
+## 2019-10-14
 
-Added
+### Added
 - 
 
-Changed
+### Changed
 - jQuery v3.3.1 upgrade to jquery-3.4.1
 - minor change to api payload
  
-Fixed
+### Fixed
 -
-
-### yyyy-mm-dd
-
-===============
