@@ -1,21 +1,21 @@
-PayEx API (PHP)
+### PayEx API - PHP code example
 
 ===============
 
-requirements:
+### requirements
 * PHP 7.3.3
 (may work with other PHP versions)
 * PHP extension curl
-* jQuery v3.3.1(included in the project => jquery.min.js)
+* jQuery v3.4.1(included)
 
 Getting Started:
 1. unzip "payexexamplephpcode.zip" to your test/production environment
 2. edit resources/settings.php
- - AuthorizationBearer (AuthorizationBearer = token)
- - hosturi (url to your site, used only for hosted view)
- - payeeId (Merchant ID)
- - baseuri (environment API) - change to production baseuri to go live
- - logging (value "true" only for testing purpose, not recommended when having huge transaction volumes because of synchronous blocking)
+- AuthorizationBearer (AuthorizationBearer = token)
+- hosturi (url to your site, used only for hosted view)
+- payeeId (Merchant ID)
+- baseuri (environment API) - change to production baseuri to go live
+- logging (value "true" only for testing purpose, not recommended when having huge transaction volumes because of synchronous blocking)
  
 regarding AuthorizationBearer token please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin/
 regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/resources/admin-account-interface-and-search/
@@ -23,18 +23,41 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 3. edit php files and change request parameters to your liking.
 4. ready
 
-Note:
+### About products
+
 Product : Checkout
- - hostedview_checkout.php (paymentmenu with checkin edit paymentmenu parameters at resources/script_checkout_consumerProfileRef.php)
- - hostedview_paymentorder.php (paymentmenu without checkin)
+- hostedview_checkout.php 
+(paymentmenu with checkin edit paymentmenu parameters at resources/script_checkout_consumerProfileRef.php)
+
+- hostedview_paymentorder.php 
+(paymentmenu without checkin)
 
 Product : Payment pages
- - hostedview_creditcard.php
- - redirect_creditcard.php
+- hostedview_creditcard.php
+- redirect_creditcard.php
 
 ===============
 
-Roadmap:
-* add all instruments => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/payex-payment-instruments/
+### Roadmap
+- add all instruments => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/payex-payment-instruments/
+
+===============
+
+### Change Log
+All notable changes to this project will be documented in this file.
+  
+### 2019-10-14
+
+Added
+- 
+
+Changed
+- jQuery v3.3.1 upgrade to jquery-3.4.1
+- minor change to api payload
+ 
+Fixed
+-
+
+### yyyy-mm-dd
 
 ===============

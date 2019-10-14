@@ -3,7 +3,6 @@
 
 <head>
     <title>creditcard redirect</title>
-    <script src="jquery.min.js"></script>
 </head>
 
 <body>
@@ -39,17 +38,10 @@ $metadata = [
 ];
 
 $creditCard = [
-    "no3DSecure" => false,
-    "no3DSecureForStoredCard" => false,
-    "rejectCardNot3DSecureEnrolled" => false,
     "rejectCreditCards" => false,
     "rejectDebitCards" => false,
     "rejectConsumerCards" => false,
     "rejectCorporateCards" => false,
-    "rejectAuthenticationStatusA" => false,
-    "rejectAuthenticationStatusU" => false,
-    "noCvc" => false,
-    "mailOrderTelephoneOrder" => "false",
 ];
 
 $payment = [

@@ -3,7 +3,7 @@
 
 <head>
     <title>checkout</title>
-    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="css/bulma.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">

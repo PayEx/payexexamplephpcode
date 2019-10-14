@@ -36,16 +36,10 @@ $metadata = [
 ];
 
 $creditCard = [
-    "no3DSecure" => false,
-    "no3DSecure" => false,
-    "no3DSecureForStoredCard" => false,
-    "rejectCardNot3DSecureEnrolled" => false,
     "rejectCreditCards" => false,
     "rejectDebitCards" => false,
     "rejectConsumerCards" => false,
     "rejectCorporateCards" => false,
-    "rejectAuthenticationStatusA" => false,
-    "rejectAuthenticationStatusU" => false,
 ];
 
 $payment = [
