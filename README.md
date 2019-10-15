@@ -23,14 +23,13 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 
 ## About products
 
-Product : Checkout
+### Checkout
 - hostedview_checkout.php 
 (paymentmenu with checkin edit paymentmenu parameters at resources/script_checkout_consumerProfileRef.php)
-
 - hostedview_paymentorder.php 
 (paymentmenu without checkin)
 
-Product : Payment pages
+### Payment pages
 - hostedview_creditcard.php
 - redirect_creditcard.php
 
@@ -43,11 +42,11 @@ All notable changes to this project will be documented in this file.
 ## 2019-10-14
 
 ### Added
-- 
+none
 
 ### Changed
-- jQuery v3.3.1 upgrade to jquery-3.4.1
-- minor change to api payload
+jQuery v3.3.1 upgrade to jquery-3.4.1
+minor change to api payload
  
 ### Fixed
--
+none
