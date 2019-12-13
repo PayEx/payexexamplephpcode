@@ -4,20 +4,21 @@ require_once 'resources/Curl.php';
 use \resources\Curl;
 
 $request = new Curl();
-$settingsdata = require_once 'resources/settings.php';
+$settingsData = require_once 'resources/settings.php';
 
-$hostUrl = $settingsdata['hosturi'];
+$hostUrl = $settingsData['hosturi'];
 
 $urls = [
-    "hostUrls" => [$hostUrl[0]],
-    "completeUrl" => "https://example.com/payment-completed",
-    "cancelUrl" => "https://example.com/payment-canceled",
-    "callbackUrl" => "https://payexexamplephpcode.000webhostapp.com/resources/script_callback.php",
+    "hostUrls" => [$hostUrl],
+    "completeUrl" => $hostUrl . "/payment-completed",
+    "paymentUrl" => $hostUrl . "/hostedview_creditcard_paymentUrl.php",
+    "cancelUrl" => $hostUrl . "/payment-canceled",
+    "callbackUrl" => $hostUrl . "/resources/script_callback.php",
     "termsOfServiceUrl" => "https://payexexamplephpcode.000webhostapp.com/termsandconditions.pdf",
 ];
 
 $payeeInfo = [
-    "payeeId" => $settingsdata['payeeId'],
+    "payeeId" => $settingsData['payeeId'],
     "payeeReference" => date("Ymdhis") . rand(100, 1000),
     "orderReference" => "order-100",
     "payeeName" => "Merchant1",
@@ -64,9 +65,9 @@ $payload = [
 
 try {
     $response = $request->curlRequest(
-        $settingsdata['AuthorizationBearer'],
+        $settingsData['AuthorizationBearer'],
         "POST",
-        $settingsdata['baseuri'] . "/psp/creditcard/payments",
+        $settingsData['baseuri'] . "/psp/creditcard/payments",
         json_encode($payload)
     );
 
@@ -75,11 +76,12 @@ try {
         $index = array_search('view-authorization', array_column($operationsArray, 'rel'));
 
         if (isset($index)) {
+            $cookie_value = $response['response']->{'payment'}->{'id'};
+            setcookie('paymentid_creditcard', $cookie_value, time() + (86400 * 30), "/");
+
             $href = $operationsArray[$index]->{'href'};
-            //$dataout = ["creditcardhref" => $href];
-            //echo $twig->render('creditcard.html', $dataout);
             include 'templates/creditcard.php';
-            exit;
+            exit();
         }
     }
 } catch (Exception $e) {

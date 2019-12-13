@@ -12,9 +12,7 @@ require_once 'resources/Curl.php';
 use \resources\Curl;
 
 $request = new Curl();
-$settingsdata = require_once 'resources/settings.php';
-
-$hostUrl = "https://payexexamplephpcode.000webhostapp.com";
+$settingsData = require_once 'resources/settings.php';
 
 $urls = [
     "completeUrl" => "https://example.com/payment-completed",
@@ -25,7 +23,7 @@ $urls = [
 ];
 
 $payeeInfo = [
-    "payeeId" => $settingsdata['payeeId'],
+    "payeeId" => $settingsData['payeeId'],
     "payeeReference" => date("Ymdhis") . rand(100, 1000),
     "orderReference" => "order-100",
     "payeeName" => "Merchant1",
@@ -72,9 +70,9 @@ $payload = [
 
 try {
     $response = $request->curlRequest(
-        $settingsdata['AuthorizationBearer'],
+        $settingsData['AuthorizationBearer'],
         "POST",
-        $settingsdata['baseuri'] . "/psp/creditcard/payments",
+        $settingsData['baseuri'] . "/psp/creditcard/payments",
         json_encode($payload)
     );
 

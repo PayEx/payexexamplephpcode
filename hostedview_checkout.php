@@ -4,7 +4,7 @@ require_once 'resources/Curl.php';
 use \resources\Curl;
 
 $request = new Curl();
-$settingsdata = require_once 'resources/settings.php';
+$settingsData = require_once 'resources/settings.php';
 
 // type of flow - initiate-consumer-session
 
@@ -17,9 +17,9 @@ $payloadConsumer = [
 ];
 
 $responseConsumer = $request->curlRequest(
-    $settingsdata['AuthorizationBearer'],
+    $settingsData['AuthorizationBearer'],
     "POST",
-    $settingsdata['baseuri'] . "/psp/consumers",
+    $settingsData['baseuri'] . "/psp/consumers",
     json_encode($payloadConsumer)
 );
 
@@ -31,6 +31,6 @@ if ($responseConsumer['statusCode'] == 200) {
     if (isset($index)) {
         $href = $operationsArray[$index]->{'href'};
         include 'templates/checkout.php';
-        exit;
+        exit();
     }
 }

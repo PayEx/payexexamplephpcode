@@ -13,8 +13,7 @@
 <script language="javascript">
 "use strict";
 
-let stylevariable = `
-    {
+let stylecreditcard = {
         "style": {
             "body": {
                 "backgroundColor": "#555",
@@ -36,11 +35,13 @@ let stylevariable = `
                 "color": "#bbb"
             }
         }    
-    }`;
+    };
 
 let config = {
     container: "creditcard",
+    //style: stylecreditcard,
     OnPaymentCompleted: function(OnPaymentCompletedEvent) {
+        alert("purchase completed");
         console.log(OnPaymentCompletedEvent);
     },
     OnPaymentFailed: function(OnPaymentFailedEvent) {

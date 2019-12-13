@@ -4,16 +4,16 @@ require_once 'resources/Curl.php';
 use \resources\Curl;
 
 $request = new Curl();
-$settingsdata = require_once 'resources/settings.php';
+$settingsData = require_once 'resources/settings.php';
 
 // please see the response for creditcard => https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/core-payment-resources/card-payments/
 $paymentid = '/psp/creditcard/payments/f9651198-6b17-454d-3741-08d6ffb6e386';
 
 try {
     $responseGET = $request->curlRequest(
-        $settingsdata['AuthorizationBearer'],
+        $settingsData['AuthorizationBearer'],
         "GET",
-        $settingsdata['baseuri'] . $paymentid,
+        $settingsData['baseuri'] . $paymentid,
         '' // payload content not needed, but empty string must be present because of the method parameter
     );
 } catch (Exception $e) {
@@ -43,7 +43,7 @@ try {
             ];
 
             $response = $request->curlRequest(
-                $settingsdata['AuthorizationBearer'],
+                $settingsData['AuthorizationBearer'],
                 $method,
                 $href,
                 json_encode($payload)

@@ -10,7 +10,7 @@ class Logger
     * @param string $folder folder to log to.
     * @param string $file name of log.
     * @param string $logdata content to log.
-    * @param string $type LogLevel type.
+    * @param string $type LogLevel.
     *
     * @return void
     */

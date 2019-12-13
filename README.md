@@ -26,8 +26,10 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 ### Checkout
 - hostedview_checkout.php 
 (paymentmenu with checkin edit paymentmenu parameters at resources/script_checkout_consumerProfileRef.php)
-- hostedview_paymentorder.php 
+- hostedview_paymentorder.php) 
 (paymentmenu without checkin)
+- hostedview_creditcard.php
+- redirect_creditcard.php
 
 ### Payment pages
 - hostedview_creditcard.php
@@ -42,11 +44,24 @@ All notable changes to this project will be documented in this file.
 ## 2019-10-14
 
 ### Added
-none
+- none
 
 ### Changed
-jQuery v3.3.1 upgrade to jquery-3.4.1
-minor change to api payload
+- jQuery v3.3.1 upgrade to jquery-3.4.1
+- minor change to api payload
  
 ### Fixed
-none
+- none
+
+## 2019-12-13
+
+### Added
+- paymentUrl handling.
+- paymentUrl for creditcard is not supported (2019-12-10), but implemented.
+- new return file for each hostedview scenario, specified in paymentUrl. This is for reloading view-paymentorder javascript.
+
+### Changed
+- moved payex javascript config values to "js/paymentorder.js" to have commen values for checkout and paymentorder.
+ 
+### Fixed
+- none

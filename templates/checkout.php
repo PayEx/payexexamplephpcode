@@ -4,6 +4,7 @@
 <head>
     <title>checkout</title>
     <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/paymentorder.js"></script>
     <link rel="stylesheet" href="css/bulma.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -33,34 +34,9 @@
 <script language="javascript">
 "use strict";
 
-let stylevariable = `
-    {
-        "style": {
-            "body": {
-                "backgroundColor": "#555",
-                "color": "#bbb"
-            },
-            "button": {
-                "backgroundColor": "#36ac4c",
-                "color": "#fff"
-            },
-            "secondaryButton": {
-                "backgroundColor": "#555",
-                "border": "solid 1px #bbb"
-            },
-            "formGroup": {
-                "color": "#bbb",
-                "backgroundColor": "#555"
-            },
-            "label": {
-                "color": "#bbb"
-            }
-        }    
-    }`;
-
 let configconsumer = {
     // uncomment to add styling
-    //style : stylevariable,
+    //style : {},
     container: "checkin",
     culture: 'en-US',
     onConsumerIdentified: function(onConsumerIdentifiedEvent) {
@@ -81,33 +57,7 @@ let configconsumer = {
                 let script2 = document.createElement("script");
                 script2.setAttribute("language", "javascript");
                 script2.async = false;
-                let node = document.createTextNode(`
-                    let configpaymentMenu = {
-                        // uncomment to add styling
-                        // style : stylevariable,
-                        container: "paymentMenu",
-                        onPaymentCompleted: function(paymentCompletedEvent) {
-                            // event handling onPaymentCompleted
-                            // please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/payment-orders-resource/
-                            alert("purchase completed");
-                        },
-                        onPaymentFailed: function(paymentFailedEvent) {
-                            //console.log(paymentFailedEvent);
-                        },
-                        onPaymentCreated: function(paymentCreatedEvent) {
-                            //console.log(paymentCreatedEvent);
-                        },
-                        onPaymentToS: function(paymentToSEvent) {
-                        //console.log(paymentToSEvent);
-                        },
-                        onPaymentMenuInstrumentSelected: function(paymentMenuInstrumentSelectedEvent) {
-                            //console.log(paymentMenuInstrumentSelectedEvent);
-                        },
-                        onError: function(error) {
-                            //console.error(error);
-                        },
-                    }
-                    payex.hostedView.paymentMenu(configpaymentMenu).open();`);
+                let node = document.createTextNode('payex.hostedView.paymentMenu(configpaymentorder).open();');
                 script2.appendChild(node);
                 document.body.appendChild(script2);
             }
