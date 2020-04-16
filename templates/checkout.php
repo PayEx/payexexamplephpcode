@@ -33,13 +33,14 @@
 <script src="<?php echo $href ?>"></script>
 <script language="javascript">
 "use strict";
-
+console.log("----------------------------");
 let configconsumer = {
     // uncomment to add styling
     //style : {},
     container: "checkin",
     culture: 'en-US',
     onConsumerIdentified: function(onConsumerIdentifiedEvent) {
+        // console.log(onConsumerIdentifiedEvent);
         // event handling onConsumerIdentified
         // please read: https://developer.payex.com/xwiki/wiki/developer/view/Main/ecommerce/technical-reference/consumers-resource/
         // HTTP GET call(jQuery)
@@ -66,13 +67,13 @@ let configconsumer = {
     },
 
     onShippingDetailsAvailable: function(onShippingDetailsAvailableEvent) {
-        //console.log(onShippingDetailsAvailableEvent);
+        console.log(onShippingDetailsAvailableEvent);
     },
     OnBillingDetailsAvailable: function(OnBillingDetailsAvailableEvent) {
-        //console.log(OnBillingDetailsAvailableEvent);
+        console.log(OnBillingDetailsAvailableEvent);
     },
     onError: function(error) {
-        //console.error(error);
+        console.error(error);
     }
 };
 

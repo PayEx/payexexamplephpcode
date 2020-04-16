@@ -11,7 +11,7 @@ $settingsData = require_once 'resources/settings.php';
 $payloadConsumer = [
 "operation" => "initiate-consumer-session",
     "msisdn" => "+4798765432",
-    "email" => "olivia.nyhuus@example.com",
+    "email" => "olivia.nyhuus@payex.com",
     "consumerCountryCode" => "NO",
     "nationalIdentifier" => ['socialSecurityNumber' => '26026708248', 'countryCode' => 'NO'],
 ];

@@ -28,8 +28,6 @@ regarding merchant ID please read: https://developer.payex.com/xwiki/wiki/develo
 (paymentmenu with checkin edit paymentmenu parameters at resources/script_checkout_consumerProfileRef.php)
 - hostedview_paymentorder.php) 
 (paymentmenu without checkin)
-- hostedview_creditcard.php
-- redirect_creditcard.php
 
 ### Payment pages
 - hostedview_creditcard.php
@@ -57,7 +55,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - paymentUrl handling.
-- paymentUrl for creditcard is not supported (2019-12-10), but implemented.
+- paymentUrl for creditcard is not supported yet, but implemented.
 - new return file for each hostedview scenario, specified in paymentUrl. This is for reloading view-paymentorder javascript.
 
 ### Changed
